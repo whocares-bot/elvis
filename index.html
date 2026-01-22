@@ -7,205 +7,268 @@
     <style>
         /* --- 靈魂之王主題配色與變數定義 --- */
         :root {
-            --theme-purple-dark: #2c003e; /* 深紫色背景 */
-            --theme-purple-light: #4a148c; /* 較亮的紫色，用於按鈕和區塊 */
-            --theme-gold: #ffd700; /* 金色，用於文字和邊框 */
-            --theme-bone: #f8f8ff; /* 骨白色，用於卡片背景 */
-            --accent-red: #d32f2f; /* 強調色 - 紅色 (清除按鈕) */
-            --accent-green: #388e3c; /* 強調色 - 綠色 (計算按鈕) */
-            --shadow-color: rgba(0, 0, 0, 0.5); /* 陰影顏色 */
+            --bg-purple-deep: #220a2e;
+            --bg-purple-light: #3a144d;
+            
+            --parchment-bg: #f4e4bc; /* 羊皮紙主色 */
+            --parchment-shadow: #d9c8a3; /* 羊皮紙陰影色 */
+            --border-gold: #cfa53e; /* 金屬邊框色 */
+            --border-gold-dark: #9e7e2e;
+            
+            --card-purple-bg: #36174D; /* 卡片/Face Card 背景 */
+            --card-text-gold: #FFD700; /* 卡片金色文字 */
+            
+            --btn-bone-bg: #fdfbf7; /* 數字鍵背景 */
+            --btn-bone-text: #2c003e;
+            --btn-bone-shadow: #cdc5b4;
+
+            --btn-red-bg: #d32f2f;
+            --btn-red-shadow: #9a0007;
+            
+            --btn-green-bg: #388e3c;
+            --btn-green-shadow: #005005;
         }
 
         body {
-            /* 設定背景為深紫色，並使用金色文字 */
             font-family: 'Segoe UI', 'Roboto', '微軟正黑體', sans-serif;
-            background-color: var(--theme-purple-dark);
-            color: var(--theme-gold);
+            /* 模擬背景的深紫色航海圖紋理 */
+            background-color: var(--bg-purple-deep);
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--bg-purple-light) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--bg-purple-light) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 20px);
+            
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px 10px;
             margin: 0;
-            min-height: 100vh; /* 確保背景填滿整個螢幕高度 */
+            min-height: 100vh;
             box-sizing: border-box;
-            touch-action: manipulation; /* 優化手機觸控體驗 */
+            touch-action: manipulation;
         }
 
-        /* 主容器，像一個藏寶箱或舞台 */
+        /* 主容器：羊皮紙風格 */
         .container {
-            background: linear-gradient(135deg, #3a004d, #1a0026);
-            padding: 25px;
-            border-radius: 20px;
-            border: 3px solid var(--theme-gold);
-            box-shadow: 0 10px 20px var(--shadow-color), inset 0 0 20px rgba(255, 215, 0, 0.2);
+            background-color: var(--parchment-bg);
+            /* 模擬紙張紋理的細微雜色 */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            padding: 20px 25px;
+            border-radius: 12px;
+            /* 複雜的多層邊框模擬立體金屬鑲邊 */
+            border: 4px solid var(--border-gold);
+            box-shadow: 
+                inset 0 0 10px var(--parchment-shadow), /* 內部紙張陰影 */
+                0 0 0 3px var(--border-gold-dark), /* 外圈深色金屬邊 */
+                0 15px 25px rgba(0,0,0,0.6); /* 整體大陰影 */
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             text-align: center;
+            position: relative;
         }
 
-        /* 標題樣式 */
+        /* 裝飾性角落 (簡化版) */
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid var(--border-gold-dark);
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
         h2 {
-            margin: 0;
-            font-size: 28px;
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: var(--bg-purple-deep);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px var(--shadow-color);
+            letter-spacing: 1px;
+            font-weight: 800;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
         }
         .title-icon {
-            font-size: 32px;
-            margin: 0 10px;
-        }
-
-        .subtitle {
-            font-size: 14px;
-            color: #b39ddb; /* 較淡的紫色文字 */
-            margin-top: 10px;
-            margin-bottom: 25px;
+            font-size: 20px;
+            margin: 0 8px;
         }
 
         /* --- 顯示已選卡片區域 --- */
         .display-area {
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 25px;
+            /* 看起來像是在羊皮紙上挖出的凹槽 */
+            background-color: var(--parchment-shadow);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
-            border: 2px dashed var(--theme-purple-light);
-            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* 卡片插槽樣式 */
+        /* 卡片插槽 (空) */
         .card-slot {
-            width: 60px;
+            width: 65px;
             height: 85px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 2px solid var(--theme-purple-light);
-            border-radius: 10px;
+            /* 空插槽的顏色比背景深一點，看起來是凹下去的 */
+            background-color: rgba(0,0,0,0.05);
+            border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.1);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: bold;
-            color: var(--theme-bone);
-            box-shadow: inset 0 0 10px var(--shadow-color);
-            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* 當插槽被填滿時的樣式 */
+        /* 當插槽被填滿時的樣式 (變成實體卡片浮在上面) */
         .card-slot.filled {
-            background-color: var(--theme-bone);
-            color: var(--theme-purple-dark);
-            border-color: var(--theme-gold);
-            box-shadow: 0 5px 10px var(--shadow-color);
-            transform: translateY(-5px); /* 輕微上浮效果 */
+            background: linear-gradient(135deg, var(--card-purple-bg), #2a0e3d);
+            color: var(--card-text-gold);
+            border: 2px solid var(--border-gold);
+            /* 強烈的外部陰影，製造浮起感 */
+            box-shadow: 
+                inset 0 1px 0 rgba(255,255,255,0.2),
+                0 4px 8px rgba(0,0,0,0.4);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            transform: translateY(-3px); /* 輕微上浮 */
         }
 
         /* --- 計算機按鈕區域 --- */
         .keypad-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4欄佈局 */
-            gap: 12px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 5px;
         }
 
-        /* 一般按鈕樣式 */
+        /* 3D 按鈕基礎樣式 */
         .btn {
             padding: 0;
-            height: 60px;
-            border: 2px solid var(--theme-purple-light);
-            border-radius: 12px;
-            font-size: 22px;
+            height: 55px;
+            border: none;
+            border-radius: 8px;
+            font-size: 24px;
             font-weight: bold;
             cursor: pointer;
-            background: linear-gradient(to bottom, #5e35b1, #4527a0);
-            color: var(--theme-gold);
-            box-shadow: 0 4px 0 #311b92, 0 5px 10px var(--shadow-color);
-            transition: all 0.1s ease;
+            position: relative;
+            transition: all 0.1s;
+            /* 核心 3D 效果：頂部高光 + 底部厚度陰影 + 整體模糊陰影 */
+            box-shadow: 
+                inset 0 1px 0 rgba(255,255,255,0.4), /* 頂部高光 */
+                0 4px 0 var(--btn-shadow), /* 底部厚度 */
+                0 5px 8px rgba(0,0,0,0.2); /* 整體陰影 */
+            transform: translateY(-2px); /* 預設稍微浮起 */
             display: flex;
             justify-content: center;
             align-items: center;
-            text-shadow: 1px 1px 2px var(--shadow-color);
         }
 
         /* 按鈕被按下時的效果 */
         .btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 0 0 #311b92, inset 0 2px 5px var(--shadow-color);
+            transform: translateY(2px); /* 向下壓 */
+            box-shadow: 
+                inset 0 2px 3px rgba(0,0,0,0.2), /* 內部凹陷感 */
+                0 0px 0 var(--btn-shadow); /* 底部厚度消失 */
         }
 
-        /* 特殊卡牌 (A, J, Q, K) 的樣式 */
+        /* 數字卡樣式 (骨白色) */
+        .btn.num-card {
+            background: linear-gradient(to bottom, #ffffff, var(--btn-bone-bg));
+            color: var(--btn-bone-text);
+            --btn-shadow: var(--btn-bone-shadow);
+            border: 1px solid var(--btn-bone-shadow);
+        }
+
+        /* 特殊卡牌樣式 (深紫色) */
         .btn.face-card {
-            background: linear-gradient(to bottom, #7e57c2, #5e35b1);
-            font-size: 24px;
+            background: linear-gradient(to bottom, #4a1f66, var(--card-purple-bg));
+            color: var(--card-text-gold);
+            --btn-shadow: #220a2e;
+            border: 1px solid #220a2e;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
         }
 
-        /* 功能按鈕樣式 */
+        /* 功能按鈕共用 */
         .btn.action-btn {
-            grid-column: span 2; /* 跨兩欄 */
+            grid-column: span 2;
             font-size: 20px;
+            height: 60px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             letter-spacing: 1px;
         }
-        .btn.clear {
-            background: linear-gradient(to bottom, var(--accent-red), #b71c1c);
-            border-color: #b71c1c;
-            box-shadow: 0 4px 0 #7f0000, 0 5px 10px var(--shadow-color);
-            color: white;
-        }
-        .btn.clear:active { box-shadow: 0 0 0 #7f0000, inset 0 2px 5px var(--shadow-color); }
         
-        .btn.solve {
-            background: linear-gradient(to bottom, var(--accent-green), #1b5e20);
-            border-color: #1b5e20;
-            box-shadow: 0 4px 0 #003300, 0 5px 10px var(--shadow-color);
-            color: white;
-            font-size: 24px;
+        /* 清除按鈕 (紅色) */
+        .btn.clear {
+            background: linear-gradient(to bottom, #e53935, var(--btn-red-bg));
+            --btn-shadow: var(--btn-red-shadow);
+            border: 1px solid var(--btn-red-shadow);
         }
-        .btn.solve:active { box-shadow: 0 0 0 #003300, inset 0 2px 5px var(--shadow-color); }
+        
+        /* 計算按鈕 (綠色) */
+        .btn.solve {
+            background: linear-gradient(to bottom, #43a047, var(--btn-green-bg));
+            --btn-shadow: var(--btn-green-shadow);
+            border: 1px solid var(--btn-green-shadow);
+            font-size: 22px;
+        }
 
         /* --- 結果顯示區 --- */
         #results {
             width: 100%;
             text-align: left;
         }
-        .solution-list {
-            max-height: 250px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-        /* 自訂捲軸樣式 (Chrome, Safari) */
-        .solution-list::-webkit-scrollbar { width: 8px; }
-        .solution-list::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
-        .solution-list::-webkit-scrollbar-thumb { background: var(--theme-purple-light); border-radius: 4px; }
-
-        .solution-item {
-            background-color: rgba(255, 215, 0, 0.1);
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace; /* 使用等寬字體 */
-            font-size: 18px;
-            border-left: 5px solid var(--theme-gold);
-            color: var(--theme-bone);
-            box-shadow: 0 2px 5px var(--shadow-color);
-        }
         .result-message {
             text-align: center;
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
         }
-        .result-message.success { color: var(--theme-gold); }
-        .result-message.failure { color: #ff8a80; background-color: rgba(211, 47, 47, 0.2); }
+        .result-message.success { 
+            color: var(--btn-green-bg);
+            background-color: rgba(56, 142, 60, 0.1);
+            border: 1px solid var(--btn-green-bg);
+        }
+        .result-message.failure { 
+            color: var(--btn-red-bg);
+            background-color: rgba(211, 47, 47, 0.1);
+            border: 1px solid var(--btn-red-bg);
+        }
 
+        .solution-list {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+            background-color: rgba(0,0,0,0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .solution-item {
+            background-color: var(--btn-bone-bg);
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 16px;
+            color: var(--bg-purple-deep);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--border-gold);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2><span class="title-icon">💀</span> Soul King's 24 <span class="title-icon">💀</span></h2>
-    <p class="subtitle">Yohoho! 點擊下方按鈕，選出 4 張靈魂之牌！</p>
+    <h2><span class="title-icon">☠️</span> Soul King's 24 <span class="title-icon">☠️</span></h2>
     
     <div class="display-area" id="displayArea">
         <div class="card-slot" id="slot-0"></div>
@@ -216,24 +279,24 @@
 
     <div class="keypad-grid">
         <button class="btn face-card" onclick="handleCardClick('A')">A</button>
-        <button class="btn" onclick="handleCardClick('2')">2</button>
-        <button class="btn" onclick="handleCardClick('3')">3</button>
-        <button class="btn" onclick="handleCardClick('4')">4</button>
-        
-        <button class="btn" onclick="handleCardClick('5')">5</button>
-        <button class="btn" onclick="handleCardClick('6')">6</button>
-        <button class="btn" onclick="handleCardClick('7')">7</button>
-        <button class="btn" onclick="handleCardClick('8')">8</button>
-        
-        <button class="btn" onclick="handleCardClick('9')">9</button>
-        <button class="btn" onclick="handleCardClick('10')">10</button>
         <button class="btn face-card" onclick="handleCardClick('J')">J</button>
+        <button class="btn num-card" onclick="handleCardClick('2')">2</button>
+        <button class="btn num-card" onclick="handleCardClick('3')">3</button>
+        
         <button class="btn face-card" onclick="handleCardClick('Q')">Q</button>
-        
         <button class="btn face-card" onclick="handleCardClick('K')">K</button>
-        <div style="grid-column: span 3;"></div> 
+        <button class="btn num-card" onclick="handleCardClick('4')">4</button>
+        <button class="btn num-card" onclick="handleCardClick('5')">5</button>
         
-        <button class="btn action-btn clear" onclick="handleClearClick()">清除</button>
+        <button class="btn num-card" onclick="handleCardClick('6')">6</button>
+        <button class="btn num-card" onclick="handleCardClick('7')">7</button>
+        <button class="btn num-card" onclick="handleCardClick('8')">8</button>
+        <button class="btn num-card" onclick="handleCardClick('9')">9</button>
+        
+        <button class="btn num-card" style="grid-column: span 2" onclick="handleCardClick('10')">10</button>
+        <div style="grid-column: span 2;"></div> 
+        
+        <button class="btn action-btn clear" onclick="handleClearClick()">CLEAR</button>
         <button class="btn action-btn solve" onclick="handleRockClick()">ROCK!</button>
     </div>
 
@@ -242,7 +305,7 @@
 
 <script>
     // --- 全域變數與設定 ---
-    let selectedCards = []; // 儲存使用者點選的牌面 (例如: ['A', '10', 'K'])
+    let selectedCards = [];
     const maxCards = 4;
     const cardValueMap = {
         'A': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, 
@@ -250,8 +313,6 @@
     };
 
     // --- UI 互動函式 ---
-
-    // 處理卡片按鈕點擊
     function handleCardClick(cardLabel) {
         if (selectedCards.length < maxCards) {
             selectedCards.push(cardLabel);
@@ -259,34 +320,26 @@
         }
     }
 
-    // 處理清除按鈕點擊
     function handleClearClick() {
         selectedCards = [];
         updateDisplay();
-        document.getElementById('results').innerHTML = ""; // 清除結果
+        document.getElementById('results').innerHTML = "";
     }
 
-    // 處理 ROCK! (計算) 按鈕點擊
     function handleRockClick() {
         if (selectedCards.length !== maxCards) {
-            // 如果沒選滿 4 張，顯示一個小的提示動畫或訊息
+            // 簡單的錯誤提示動畫
             const displayArea = document.getElementById('displayArea');
-            displayArea.style.borderColor = var(--accent-red);
-            setTimeout(() => {
-                updateDisplay(); // 恢復原狀
-            }, 500);
+            displayArea.style.transform = "translateX(5px)";
+            setTimeout(() => { displayArea.style.transform = "translateX(-5px)"; }, 50);
+            setTimeout(() => { displayArea.style.transform = "translateX(0)"; }, 100);
             return;
         }
-        // 將牌面文字轉換為數字，然後開始計算
         const nums = selectedCards.map(card => cardValueMap[card]);
         solve(nums);
     }
 
-    // 更新畫面顯示
     function updateDisplay() {
-        const displayArea = document.getElementById('displayArea');
-        let isFull = selectedCards.length === maxCards;
-
         for (let i = 0; i < maxCards; i++) {
             const slot = document.getElementById(`slot-${i}`);
             if (selectedCards[i]) {
@@ -297,62 +350,41 @@
                 slot.classList.remove('filled');
             }
         }
-        
-        // 視覺回饋：如果選滿了，改變顯示區邊框顏色
-        if (isFull) {
-            displayArea.style.borderColor = var(--accent-green);
-            displayArea.style.boxShadow = "0 0 15px " + var(--accent-green);
-        } else {
-            displayArea.style.borderColor = var(--theme-purple-light);
-            displayArea.style.boxShadow = "none";
-        }
     }
 
-    // --- 核心 24 點計算邏輯 ---
+    // --- 核心 24 點計算邏輯 (保持不變) ---
     function solve(nums) {
         const solutions = new Set();
-        // 遞迴函數，尋找所有可能的運算組合
         const find24 = (currentNums, currentExprs) => {
             if (currentNums.length === 1) {
-                // 使用一個小的誤差範圍來判斷浮點數是否等於 24
                 if (Math.abs(currentNums[0] - 24) < 0.00001) {
                     solutions.add(currentExprs[0]);
                 }
                 return;
             }
-
             for (let i = 0; i < currentNums.length; i++) {
                 for (let j = 0; j < currentNums.length; j++) {
                     if (i === j) continue;
-                    // 取出兩個數字進行運算，剩下的數字繼續遞迴
                     const nextNums = currentNums.filter((_, idx) => idx !== i && idx !== j);
                     const nextExprs = currentExprs.filter((_, idx) => idx !== i && idx !== j);
                     const a = currentNums[i], b = currentNums[j];
                     const ea = currentExprs[i], eb = currentExprs[j];
-
-                    // 嘗試四則運算
                     find24([...nextNums, a + b], [...nextExprs, `(${ea}+${eb})`]);
                     find24([...nextNums, a - b], [...nextExprs, `(${ea}-${eb})`]);
                     find24([...nextNums, a * b], [...nextExprs, `(${ea}*${eb})`]);
-                    // 除法要防止除以零
-                    if (Math.abs(b) > 0.00001) {
-                        find24([...nextNums, a / b], [...nextExprs, `(${ea}/${eb})`]);
-                    }
+                    if (Math.abs(b) > 0.00001) find24([...nextNums, a / b], [...nextExprs, `(${ea}/${eb})`]);
                 }
             }
         };
 
-        // 開始計算，初始輸入為數字陣列和對應的字串陣列
         find24(nums, nums.map(String));
 
-        // --- 顯示結果 ---
         const resultDiv = document.getElementById('results');
         resultDiv.innerHTML = "";
         
         if (solutions.size === 0) {
-            resultDiv.innerHTML = "<div class='result-message failure'>💀 Yohoho... 這四張牌沒救了，算不出 24 點！</div>";
+            resultDiv.innerHTML = "<div class='result-message failure'>💀 Yohoho... 無解！</div>";
         } else {
-            // 簡單過濾重複的結構 (例如 (A+B)+C 和 A+(B+C))
             const uniqueSolutions = [];
             const seen = new Set();
             solutions.forEach(sol => {
@@ -363,19 +395,16 @@
                 }
             });
 
-            // 顯示成功訊息和解法數量
             const message = document.createElement('div');
             message.className = 'result-message success';
-            message.innerText = `🎉 ROCK! 找到了 ${uniqueSolutions.length} 種靈魂解法！`;
+            message.innerText = `🎉 ROCK! 找到 ${uniqueSolutions.length} 種解法！`;
             resultDiv.appendChild(message);
 
-            // 建立一個可捲動的清單來顯示所有解法
             const list = document.createElement('div');
             list.className = 'solution-list';
             uniqueSolutions.forEach(sol => {
                 const item = document.createElement('div');
                 item.className = 'solution-item';
-                // 移除最外層的括號讓顯示更乾淨
                 item.innerText = sol.substring(1, sol.length - 1) + " = 24";
                 list.appendChild(item);
             });
