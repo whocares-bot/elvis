@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Soul King's 24 - Ultimate Edition</title>
+    <title>Soul King's 24 - Ultimate Rock Edition</title>
     <style>
         :root {
             --bg-deep: #1a0521;
@@ -19,12 +19,12 @@
             --btn-red-shadow: #881111;
             --btn-green: #2e7d32;
             --btn-green-shadow: #144418;
+            --text-dark: #2c1a05;
         }
 
         body {
             font-family: 'Segoe UI', 'Roboto', '微軟正黑體', sans-serif;
             background-color: var(--bg-deep);
-            /* 模擬背景的深紫色航海圖紋理 */
             background-image: radial-gradient(circle at center, #2e0d3d 0%, var(--bg-deep) 100%);
             display: flex;
             justify-content: center;
@@ -45,22 +45,30 @@
             padding: 20px;
             border-radius: 15px;
             border: 5px solid var(--gold-trim);
-            box-shadow: 
-                0 20px 40px rgba(0,0,0,0.8),
-                inset 0 0 15px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,0,0,0.1);
             position: relative;
             box-sizing: border-box;
+            text-align: center;
         }
 
         h2 {
-            margin: 0 0 15px 0;
-            color: #2c1a05;
+            margin: 0;
+            color: var(--text-dark);
             font-size: 26px;
             letter-spacing: 1px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: 900;
+        }
+
+        .subtitle {
+            margin: 10px 0 20px 0;
+            font-size: 15px;
+            color: #5d4037;
+            line-height: 1.5;
+            font-weight: bold;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
         }
 
         /* 顯示插槽區域 */
@@ -88,7 +96,6 @@
             transition: all 0.2s;
         }
 
-        /* 填滿後的卡片效果 */
         .card-slot.filled {
             background: linear-gradient(135deg, var(--btn-face-bg), #2a0e3d);
             color: var(--btn-face-text);
@@ -104,7 +111,6 @@
             gap: 12px;
         }
 
-        /* 通用按鈕基礎 (3D 效果) */
         .btn {
             height: 55px;
             border: none;
@@ -119,7 +125,6 @@
             align-items: center;
         }
 
-        /* 按鈕厚度與陰影 */
         .btn.num {
             background: var(--btn-num-bg);
             color: #332211;
@@ -148,35 +153,47 @@
             font-size: 22px;
         }
 
-        /* 按下按鈕的位移 */
         .btn:active {
             transform: translateY(3px);
-            box-shadow: 0 2px 0 var(--btn-num-shadow), 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 0 var(--btn-num-shadow);
         }
         .btn.face:active { box-shadow: 0 2px 0 var(--btn-face-shadow); }
         .btn.clear:active { box-shadow: 0 2px 0 var(--btn-red-shadow); }
         .btn.rock:active { box-shadow: 0 2px 0 var(--btn-green-shadow); }
 
-        /* 結果區 */
         #results {
             margin-top: 15px;
             width: 100%;
+            text-align: left;
         }
         .sol-item {
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.6);
             margin: 5px 0;
-            padding: 8px;
+            padding: 10px;
             border-radius: 5px;
             font-family: monospace;
+            font-size: 16px;
             font-weight: bold;
-            border-left: 4px solid var(--gold-trim);
+            color: #1a0521;
+            border-left: 5px solid var(--gold-trim);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .no-sol {
+            color: var(--btn-red);
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>☠️ SOUL KING 24 ☠️</h2>
+    <h2>☠️ SOUL KING'S 24 ☠️</h2>
+    <p class="subtitle">
+        Yohoho! 點擊下方按鈕，選出 4 張靈魂之牌！<br>
+        看你能不能選中命運的 24
+    </p>
     
     <div class="display-area" id="displayArea">
         <div class="card-slot" id="slot-0"></div>
@@ -266,13 +283,18 @@
 
         find(nums, nums.map(String));
         const out = document.getElementById('results');
-        out.innerHTML = results.size === 0 ? "💀 NO SOLUTION" : "";
-        results.forEach(s => {
-            const d = document.createElement('div');
-            d.className = 'sol-item';
-            d.innerText = s.substring(1, s.length-1) + " = 24";
-            out.appendChild(d);
-        });
+        out.innerHTML = "";
+        
+        if (results.size === 0) {
+            out.innerHTML = "<div class='no-sol'>💀 Yohoho! 命運中沒有 24 點...</div>";
+        } else {
+            results.forEach(s => {
+                const d = document.createElement('div');
+                d.className = 'sol-item';
+                d.innerText = s.substring(1, s.length-1) + " = 24";
+                out.appendChild(d);
+            });
+        }
     }
 </script>
 
