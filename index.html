@@ -123,4 +123,213 @@
         /* 功能按鈕樣式 */
         .action-btn.clear {
             background-color: #e74c3c;
-            color
+            color: white;
+            grid-column: span 2; /* 跨兩欄 */
+        }
+        .action-btn.solve {
+            background-color: #27ae60;
+            color: white;
+            grid-column: span 2; /* 跨兩欄 */
+            font-size: 22px;
+        }
+
+        /* --- 結果顯示區 --- */
+        #results {
+            margin-top: 20px;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .solution {
+            background: #ebf5fb;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 16px;
+            border-left: 4px solid var(--accent-color);
+        }
+        .no-solution {
+            color: #c0392b;
+            text-align: center;
+            padding: 15px;
+            background: #fadbd8;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>24 點計算機</h2>
+    <p class="subtitle">點擊下方鍵盤選擇 4 張牌</p>
+    
+    <div class="display-area" id="displayArea">
+        <div class="selected-card-slot" id="slot-0"></div>
+        <div class="selected-card-slot" id="slot-1"></div>
+        <div class="selected-card-slot" id="slot-2"></div>
+        <div class="selected-card-slot" id="slot-3"></div>
+    </div>
+
+    <div class="keypad-grid">
+        <button class="card-btn face-card" onclick="selectCard('A')">A</button>
+        <button class="card-btn" onclick="selectCard('2')">2</button>
+        <button class="card-btn" onclick="selectCard('3')">3</button>
+        <button class="card-btn" onclick="selectCard('4')">4</button>
+        
+        <button class="card-btn" onclick="selectCard('5')">5</button>
+        <button class="card-btn" onclick="selectCard('6')">6</button>
+        <button class="card-btn" onclick="selectCard('7')">7</button>
+        <button class="card-btn" onclick="selectCard('8')">8</button>
+        
+        <button class="card-btn" onclick="selectCard('9')">9</button>
+        <button class="card-btn" onclick="selectCard('10')">10</button>
+        <button class="card-btn face-card" onclick="selectCard('J')">J</button>
+        <button class="card-btn face-card" onclick="selectCard('Q')">Q</button>
+        
+        <button class="card-btn face-card" onclick="selectCard('K')">K</button>
+        <div style="grid-column: span 3;"></div> 
+        
+        <button class="action-btn clear" onclick="clearSelection()">清除 (C)</button>
+        <button class="action-btn solve" onclick="startCalculate()">計算 (=)</button>
+    </div>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    // --- UI 互動邏輯 ---
+    let selectedCards = []; // 儲存使用者點選的牌面 (例如: ['A', '10', 'K'])
+    const maxCards = 4;
+
+    // 點擊卡片按鈕時觸發
+    function selectCard(cardValue) {
+        if (selectedCards.length < maxCards) {
+            selectedCards.push(cardValue);
+            updateDisplay();
+            // 如果選滿 4 張，自動觸發計算 (可選)
+            // if (selectedCards.length === maxCards) { setTimeout(startCalculate, 300); }
+        }
+    }
+
+    // 清除按鈕觸發
+    function clearSelection() {
+        selectedCards = [];
+        updateDisplay();
+        document.getElementById('results').innerHTML = ""; // 清除結果
+    }
+
+    // 更新上方顯示區的畫面
+    function updateDisplay() {
+        for (let i = 0; i < maxCards; i++) {
+            const slot = document.getElementById(`slot-${i}`);
+            if (selectedCards[i]) {
+                slot.innerText = selectedCards[i];
+                slot.classList.add('filled');
+            } else {
+                slot.innerText = "";
+                slot.classList.remove('filled');
+            }
+        }
+        
+        // 視覺回饋：如果選滿了，讓顯示區邊框變色提示
+        const displayArea = document.getElementById('displayArea');
+        if (selectedCards.length === maxCards) {
+            displayArea.style.borderColor = "#27ae60";
+            displayArea.style.backgroundColor = "#eafaf1";
+        } else {
+            displayArea.style.borderColor = "#bdc3c7";
+            displayArea.style.backgroundColor = "#f7f9f9";
+        }
+    }
+
+    // --- 核心計算邏輯 (與之前相同，但適配新的輸入方式) ---
+    
+    // 撲克牌點數映射表
+    const cardValueMap = {
+        'A': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, 
+        '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13
+    };
+
+    function startCalculate() {
+        if (selectedCards.length !== maxCards) {
+            alert("請先點選 4 張牌喔！");
+            return;
+        }
+
+        // 將牌面文字 (A, K) 轉換為數字 (1, 13)
+        const nums = selectedCards.map(card => cardValueMap[card]);
+        solve(nums);
+    }
+
+    function solve(nums) {
+        const solutions = new Set();
+        const find24 = (currentNums, currentExprs) => {
+            if (currentNums.length === 1) {
+                if (Math.abs(currentNums[0] - 24) < 0.001) {
+                    solutions.add(currentExprs[0]);
+                }
+                return;
+            }
+
+            for (let i = 0; i < currentNums.length; i++) {
+                for (let j = 0; j < currentNums.length; j++) {
+                    if (i === j) continue;
+                    const nextNums = currentNums.filter((_, idx) => idx !== i && idx !== j);
+                    const nextExprs = currentExprs.filter((_, idx) => idx !== i && idx !== j);
+                    const a = currentNums[i], b = currentNums[j];
+                    const ea = currentExprs[i], eb = currentExprs[j];
+
+                    find24([...nextNums, a + b], [...nextExprs, `(${ea}+${eb})`]);
+                    find24([...nextNums, a * b], [...nextExprs, `(${ea}*${eb})`]);
+                    find24([...nextNums, a - b], [...nextExprs, `(${ea}-${eb})`]);
+                    if (Math.abs(b) > 0.0001) find24([...nextNums, a / b], [...nextExprs, `(${ea}/${eb})`]);
+                }
+            }
+        };
+
+        find24(nums, nums.map(String));
+
+        const resultDiv = document.getElementById('results');
+        resultDiv.innerHTML = "";
+        
+        if (solutions.size === 0) {
+            resultDiv.innerHTML = "<div class='no-solution'>無解 (這四張牌無法算出 24)</div>";
+        } else {
+            // 簡單過濾掉結構相似的重複答案 (例如 (A+B)+C 與 A+(B+C))
+            const simplifiedSolutions = new Set();
+            solutions.forEach(sol => {
+                 // 移除最外層括號並替換運算符以進行粗略比較
+                let simplified = sol.substring(1, sol.length - 1).replace(/[\+\-\*\/]/g, '#');
+                simplifiedSolutions.add({full: sol, simple: simplified});
+            });
+
+            const uniqueResults = [];
+            const seen = new Set();
+            for (let item of simplifiedSolutions) {
+                if (!seen.has(item.simple)) {
+                    uniqueResults.push(item.full);
+                    seen.add(item.simple);
+                }
+            }
+            
+            // 顯示結果
+            uniqueResults.forEach(sol => {
+                const item = document.createElement('div');
+                item.className = 'solution';
+                // 移除最外層的括號讓顯示更乾淨
+                item.innerText = sol.substring(1, sol.length - 1) + " = 24";
+                resultDiv.appendChild(item);
+            });
+             // 顯示找到幾種解法
+             const countInfo = document.createElement('p');
+             countInfo.style.textAlign = 'center';
+             countInfo.style.color = '#666';
+             countInfo.innerText = `找到 ${uniqueResults.length} 種主要解法`;
+             resultDiv.insertBefore(countInfo, resultDiv.firstChild);
+        }
+    }
+</script>
+
+</body>
+</html>
