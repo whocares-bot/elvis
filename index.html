@@ -3,272 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Soul King's 24 點派對</title>
+    <title>Soul King's 24 - Ultimate Edition</title>
     <style>
-        /* --- 靈魂之王主題配色與變數定義 --- */
         :root {
-            --bg-purple-deep: #220a2e;
-            --bg-purple-light: #3a144d;
-            
-            --parchment-bg: #f4e4bc; /* 羊皮紙主色 */
-            --parchment-shadow: #d9c8a3; /* 羊皮紙陰影色 */
-            --border-gold: #cfa53e; /* 金屬邊框色 */
-            --border-gold-dark: #9e7e2e;
-            
-            --card-purple-bg: #36174D; /* 卡片/Face Card 背景 */
-            --card-text-gold: #FFD700; /* 卡片金色文字 */
-            
-            --btn-bone-bg: #fdfbf7; /* 數字鍵背景 */
-            --btn-bone-text: #2c003e;
-            --btn-bone-shadow: #cdc5b4;
-
-            --btn-red-bg: #d32f2f;
-            --btn-red-shadow: #9a0007;
-            
-            --btn-green-bg: #388e3c;
-            --btn-green-shadow: #005005;
+            --bg-deep: #1a0521;
+            --parchment: #f2e2ba;
+            --gold-trim: #c5a044;
+            --gold-dark: #8e6d2a;
+            --btn-num-bg: #fdfcf8;
+            --btn-num-shadow: #d1c9b8;
+            --btn-face-bg: #3d1b5d;
+            --btn-face-text: #ffd700;
+            --btn-face-shadow: #250a36;
+            --btn-red: #cc3333;
+            --btn-red-shadow: #881111;
+            --btn-green: #2e7d32;
+            --btn-green-shadow: #144418;
         }
 
         body {
             font-family: 'Segoe UI', 'Roboto', '微軟正黑體', sans-serif;
+            background-color: var(--bg-deep);
             /* 模擬背景的深紫色航海圖紋理 */
-            background-color: var(--bg-purple-deep);
-            background-image: 
-                radial-gradient(circle at 20% 30%, var(--bg-purple-light) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, var(--bg-purple-light) 0%, transparent 50%),
-                repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 20px),
-                repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 20px);
-            
+            background-image: radial-gradient(circle at center, #2e0d3d 0%, var(--bg-deep) 100%);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 20px 10px;
-            margin: 0;
             min-height: 100vh;
+            margin: 0;
+            padding: 15px;
             box-sizing: border-box;
             touch-action: manipulation;
         }
 
-        /* 主容器：羊皮紙風格 */
+        /* 羊皮紙主容器 */
         .container {
-            background-color: var(--parchment-bg);
-            /* 模擬紙張紋理的細微雜色 */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-            padding: 20px 25px;
-            border-radius: 12px;
-            /* 複雜的多層邊框模擬立體金屬鑲邊 */
-            border: 4px solid var(--border-gold);
-            box-shadow: 
-                inset 0 0 10px var(--parchment-shadow), /* 內部紙張陰影 */
-                0 0 0 3px var(--border-gold-dark), /* 外圈深色金屬邊 */
-                0 15px 25px rgba(0,0,0,0.6); /* 整體大陰影 */
+            background-color: var(--parchment);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
             width: 100%;
             max-width: 380px;
-            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            border: 5px solid var(--gold-trim);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.8),
+                inset 0 0 15px rgba(0,0,0,0.1);
             position: relative;
-        }
-
-        /* 裝飾性角落 (簡化版) */
-        .container::after {
-            content: '';
-            position: absolute;
-            top: 5px; left: 5px; right: 5px; bottom: 5px;
-            border: 1px solid var(--border-gold-dark);
-            border-radius: 8px;
-            pointer-events: none;
-            opacity: 0.3;
+            box-sizing: border-box;
         }
 
         h2 {
-            margin: 0 0 10px 0;
-            font-size: 24px;
-            color: var(--bg-purple-deep);
-            text-transform: uppercase;
+            margin: 0 0 15px 0;
+            color: #2c1a05;
+            font-size: 26px;
             letter-spacing: 1px;
-            font-weight: 800;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
-        }
-        .title-icon {
-            font-size: 20px;
-            margin: 0 8px;
+            font-weight: 900;
         }
 
-        /* --- 顯示已選卡片區域 --- */
+        /* 顯示插槽區域 */
         .display-area {
-            /* 看起來像是在羊皮紙上挖出的凹槽 */
-            background-color: var(--parchment-shadow);
-            border-radius: 8px;
-            padding: 12px;
+            background-color: rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 10px;
             margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* 卡片插槽 (空) */
         .card-slot {
-            width: 65px;
-            height: 85px;
-            /* 空插槽的顏色比背景深一點，看起來是凹下去的 */
+            height: 80px;
             background-color: rgba(0,0,0,0.05);
-            border-radius: 6px;
+            border-radius: 8px;
             border: 1px solid rgba(0,0,0,0.1);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 36px;
+            font-size: 32px;
             font-weight: bold;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.2s;
         }
 
-        /* 當插槽被填滿時的樣式 (變成實體卡片浮在上面) */
+        /* 填滿後的卡片效果 */
         .card-slot.filled {
-            background: linear-gradient(135deg, var(--card-purple-bg), #2a0e3d);
-            color: var(--card-text-gold);
-            border: 2px solid var(--border-gold);
-            /* 強烈的外部陰影，製造浮起感 */
-            box-shadow: 
-                inset 0 1px 0 rgba(255,255,255,0.2),
-                0 4px 8px rgba(0,0,0,0.4);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            transform: translateY(-3px); /* 輕微上浮 */
+            background: linear-gradient(135deg, var(--btn-face-bg), #2a0e3d);
+            color: var(--btn-face-text);
+            border: 2px solid var(--gold-trim);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
         }
 
-        /* --- 計算機按鈕區域 --- */
+        /* 按鈕網格 */
         .keypad-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 5px;
+            gap: 12px;
         }
 
-        /* 3D 按鈕基礎樣式 */
+        /* 通用按鈕基礎 (3D 效果) */
         .btn {
-            padding: 0;
             height: 55px;
             border: none;
-            border-radius: 8px;
-            font-size: 24px;
+            border-radius: 10px;
+            font-size: 22px;
             font-weight: bold;
             cursor: pointer;
             position: relative;
-            transition: all 0.1s;
-            /* 核心 3D 效果：頂部高光 + 底部厚度陰影 + 整體模糊陰影 */
-            box-shadow: 
-                inset 0 1px 0 rgba(255,255,255,0.4), /* 頂部高光 */
-                0 4px 0 var(--btn-shadow), /* 底部厚度 */
-                0 5px 8px rgba(0,0,0,0.2); /* 整體陰影 */
-            transform: translateY(-2px); /* 預設稍微浮起 */
+            transition: all 0.05s;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* 按鈕被按下時的效果 */
-        .btn:active {
-            transform: translateY(2px); /* 向下壓 */
-            box-shadow: 
-                inset 0 2px 3px rgba(0,0,0,0.2), /* 內部凹陷感 */
-                0 0px 0 var(--btn-shadow); /* 底部厚度消失 */
+        /* 按鈕厚度與陰影 */
+        .btn.num {
+            background: var(--btn-num-bg);
+            color: #332211;
+            box-shadow: 0 5px 0 var(--btn-num-shadow), 0 8px 10px rgba(0,0,0,0.2);
         }
 
-        /* 數字卡樣式 (骨白色) */
-        .btn.num-card {
-            background: linear-gradient(to bottom, #ffffff, var(--btn-bone-bg));
-            color: var(--btn-bone-text);
-            --btn-shadow: var(--btn-bone-shadow);
-            border: 1px solid var(--btn-bone-shadow);
+        .btn.face {
+            background: var(--btn-face-bg);
+            color: var(--btn-face-text);
+            box-shadow: 0 5px 0 var(--btn-face-shadow), 0 8px 10px rgba(0,0,0,0.3);
+            font-size: 24px;
         }
 
-        /* 特殊卡牌樣式 (深紫色) */
-        .btn.face-card {
-            background: linear-gradient(to bottom, #4a1f66, var(--card-purple-bg));
-            color: var(--card-text-gold);
-            --btn-shadow: #220a2e;
-            border: 1px solid #220a2e;
-            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-        }
-
-        /* 功能按鈕共用 */
-        .btn.action-btn {
-            grid-column: span 2;
-            font-size: 20px;
-            height: 60px;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            letter-spacing: 1px;
-        }
-        
-        /* 清除按鈕 (紅色) */
         .btn.clear {
-            background: linear-gradient(to bottom, #e53935, var(--btn-red-bg));
-            --btn-shadow: var(--btn-red-shadow);
-            border: 1px solid var(--btn-red-shadow);
+            background: var(--btn-red);
+            color: white;
+            box-shadow: 0 5px 0 var(--btn-red-shadow), 0 8px 10px rgba(0,0,0,0.2);
+            grid-column: span 2;
         }
-        
-        /* 計算按鈕 (綠色) */
-        .btn.solve {
-            background: linear-gradient(to bottom, #43a047, var(--btn-green-bg));
-            --btn-shadow: var(--btn-green-shadow);
-            border: 1px solid var(--btn-green-shadow);
+
+        .btn.rock {
+            background: var(--btn-green);
+            color: white;
+            box-shadow: 0 5px 0 var(--btn-green-shadow), 0 8px 10px rgba(0,0,0,0.2);
+            grid-column: span 2;
             font-size: 22px;
         }
 
-        /* --- 結果顯示區 --- */
-        #results {
-            width: 100%;
-            text-align: left;
+        /* 按下按鈕的位移 */
+        .btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 var(--btn-num-shadow), 0 2px 5px rgba(0,0,0,0.2);
         }
-        .result-message {
-            text-align: center;
-            font-size: 16px;
-            margin-bottom: 15px;
-            padding: 8px;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-        .result-message.success { 
-            color: var(--btn-green-bg);
-            background-color: rgba(56, 142, 60, 0.1);
-            border: 1px solid var(--btn-green-bg);
-        }
-        .result-message.failure { 
-            color: var(--btn-red-bg);
-            background-color: rgba(211, 47, 47, 0.1);
-            border: 1px solid var(--btn-red-bg);
-        }
+        .btn.face:active { box-shadow: 0 2px 0 var(--btn-face-shadow); }
+        .btn.clear:active { box-shadow: 0 2px 0 var(--btn-red-shadow); }
+        .btn.rock:active { box-shadow: 0 2px 0 var(--btn-green-shadow); }
 
-        .solution-list {
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 5px;
-            background-color: rgba(0,0,0,0.03);
-            border-radius: 8px;
-            border: 1px solid rgba(0,0,0,0.05);
+        /* 結果區 */
+        #results {
+            margin-top: 15px;
+            width: 100%;
         }
-        .solution-item {
-            background-color: var(--btn-bone-bg);
-            padding: 8px 12px;
-            margin-bottom: 6px;
-            border-radius: 4px;
+        .sol-item {
+            background: rgba(255,255,255,0.5);
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
             font-family: monospace;
-            font-size: 16px;
-            color: var(--bg-purple-deep);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border-left: 4px solid var(--border-gold);
+            font-weight: bold;
+            border-left: 4px solid var(--gold-trim);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2><span class="title-icon">☠️</span> Soul King's 24 <span class="title-icon">☠️</span></h2>
+    <h2>☠️ SOUL KING 24 ☠️</h2>
     
     <div class="display-area" id="displayArea">
         <div class="card-slot" id="slot-0"></div>
@@ -278,72 +186,52 @@
     </div>
 
     <div class="keypad-grid">
-        <button class="btn face-card" onclick="handleCardClick('A')">A</button>
-        <button class="btn face-card" onclick="handleCardClick('J')">J</button>
-        <button class="btn num-card" onclick="handleCardClick('2')">2</button>
-        <button class="btn num-card" onclick="handleCardClick('3')">3</button>
+        <button class="btn num" onclick="addCard('2')">2</button>
+        <button class="btn num" onclick="addCard('3')">3</button>
+        <button class="btn num" onclick="addCard('4')">4</button>
+        <button class="btn num" onclick="addCard('5')">5</button>
         
-        <button class="btn face-card" onclick="handleCardClick('Q')">Q</button>
-        <button class="btn face-card" onclick="handleCardClick('K')">K</button>
-        <button class="btn num-card" onclick="handleCardClick('4')">4</button>
-        <button class="btn num-card" onclick="handleCardClick('5')">5</button>
+        <button class="btn num" onclick="addCard('6')">6</button>
+        <button class="btn num" onclick="addCard('7')">7</button>
+        <button class="btn num" onclick="addCard('8')">8</button>
+        <button class="btn num" onclick="addCard('9')">9</button>
         
-        <button class="btn num-card" onclick="handleCardClick('6')">6</button>
-        <button class="btn num-card" onclick="handleCardClick('7')">7</button>
-        <button class="btn num-card" onclick="handleCardClick('8')">8</button>
-        <button class="btn num-card" onclick="handleCardClick('9')">9</button>
+        <button class="btn num" style="grid-column: span 4;" onclick="addCard('10')">10</button>
+
+        <button class="btn face" onclick="addCard('A')">A</button>
+        <button class="btn face" onclick="addCard('J')">J</button>
+        <button class="btn face" onclick="addCard('Q')">Q</button>
+        <button class="btn face" onclick="addCard('K')">K</button>
         
-        <button class="btn num-card" style="grid-column: span 2" onclick="handleCardClick('10')">10</button>
-        <div style="grid-column: span 2;"></div> 
-        
-        <button class="btn action-btn clear" onclick="handleClearClick()">CLEAR</button>
-        <button class="btn action-btn solve" onclick="handleRockClick()">ROCK!</button>
+        <button class="btn clear" onclick="resetAll()">CLEAR</button>
+        <button class="btn rock" onclick="runSolve()">ROCK!</button>
     </div>
 
     <div id="results"></div>
 </div>
 
 <script>
-    // --- 全域變數與設定 ---
-    let selectedCards = [];
-    const maxCards = 4;
-    const cardValueMap = {
-        'A': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, 
-        '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13
-    };
+    let selected = [];
+    const valMap = {'A':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'J':11, 'Q':12, 'K':13};
 
-    // --- UI 互動函式 ---
-    function handleCardClick(cardLabel) {
-        if (selectedCards.length < maxCards) {
-            selectedCards.push(cardLabel);
-            updateDisplay();
+    function addCard(c) {
+        if (selected.length < 4) {
+            selected.push(c);
+            updateUI();
         }
     }
 
-    function handleClearClick() {
-        selectedCards = [];
-        updateDisplay();
+    function resetAll() {
+        selected = [];
+        updateUI();
         document.getElementById('results').innerHTML = "";
     }
 
-    function handleRockClick() {
-        if (selectedCards.length !== maxCards) {
-            // 簡單的錯誤提示動畫
-            const displayArea = document.getElementById('displayArea');
-            displayArea.style.transform = "translateX(5px)";
-            setTimeout(() => { displayArea.style.transform = "translateX(-5px)"; }, 50);
-            setTimeout(() => { displayArea.style.transform = "translateX(0)"; }, 100);
-            return;
-        }
-        const nums = selectedCards.map(card => cardValueMap[card]);
-        solve(nums);
-    }
-
-    function updateDisplay() {
-        for (let i = 0; i < maxCards; i++) {
+    function updateUI() {
+        for (let i = 0; i < 4; i++) {
             const slot = document.getElementById(`slot-${i}`);
-            if (selectedCards[i]) {
-                slot.innerText = selectedCards[i];
+            if (selected[i]) {
+                slot.innerText = selected[i];
                 slot.classList.add('filled');
             } else {
                 slot.innerText = "";
@@ -352,64 +240,39 @@
         }
     }
 
-    // --- 核心 24 點計算邏輯 (保持不變) ---
-    function solve(nums) {
-        const solutions = new Set();
-        const find24 = (currentNums, currentExprs) => {
-            if (currentNums.length === 1) {
-                if (Math.abs(currentNums[0] - 24) < 0.00001) {
-                    solutions.add(currentExprs[0]);
-                }
+    function runSolve() {
+        if (selected.length !== 4) return;
+        const nums = selected.map(c => valMap[c]);
+        const results = new Set();
+
+        const find = (ns, es) => {
+            if (ns.length === 1) {
+                if (Math.abs(ns[0] - 24) < 0.001) results.add(es[0]);
                 return;
             }
-            for (let i = 0; i < currentNums.length; i++) {
-                for (let j = 0; j < currentNums.length; j++) {
+            for (let i = 0; i < ns.length; i++) {
+                for (let j = 0; j < ns.length; j++) {
                     if (i === j) continue;
-                    const nextNums = currentNums.filter((_, idx) => idx !== i && idx !== j);
-                    const nextExprs = currentExprs.filter((_, idx) => idx !== i && idx !== j);
-                    const a = currentNums[i], b = currentNums[j];
-                    const ea = currentExprs[i], eb = currentExprs[j];
-                    find24([...nextNums, a + b], [...nextExprs, `(${ea}+${eb})`]);
-                    find24([...nextNums, a - b], [...nextExprs, `(${ea}-${eb})`]);
-                    find24([...nextNums, a * b], [...nextExprs, `(${ea}*${eb})`]);
-                    if (Math.abs(b) > 0.00001) find24([...nextNums, a / b], [...nextExprs, `(${ea}/${eb})`]);
+                    const nextN = ns.filter((_, k) => k !== i && k !== j);
+                    const nextE = es.filter((_, k) => k !== i && k !== j);
+                    const a = ns[i], b = ns[j], ea = es[i], eb = es[j];
+                    find([...nextN, a+b], [...nextE, `(${ea}+${eb})`]);
+                    find([...nextN, a-b], [...nextE, `(${ea}-${eb})`]);
+                    find([...nextN, a*b], [...nextE, `(${ea}*${eb})`]);
+                    if (Math.abs(b) > 0.001) find([...nextN, a/b], [...nextE, `(${ea}/${eb})`]);
                 }
             }
         };
 
-        find24(nums, nums.map(String));
-
-        const resultDiv = document.getElementById('results');
-        resultDiv.innerHTML = "";
-        
-        if (solutions.size === 0) {
-            resultDiv.innerHTML = "<div class='result-message failure'>💀 Yohoho... 無解！</div>";
-        } else {
-            const uniqueSolutions = [];
-            const seen = new Set();
-            solutions.forEach(sol => {
-                let simplified = sol.substring(1, sol.length - 1).replace(/[\+\-\*\/]/g, '#');
-                if (!seen.has(simplified)) {
-                    uniqueSolutions.push(sol);
-                    seen.add(simplified);
-                }
-            });
-
-            const message = document.createElement('div');
-            message.className = 'result-message success';
-            message.innerText = `🎉 ROCK! 找到 ${uniqueSolutions.length} 種解法！`;
-            resultDiv.appendChild(message);
-
-            const list = document.createElement('div');
-            list.className = 'solution-list';
-            uniqueSolutions.forEach(sol => {
-                const item = document.createElement('div');
-                item.className = 'solution-item';
-                item.innerText = sol.substring(1, sol.length - 1) + " = 24";
-                list.appendChild(item);
-            });
-            resultDiv.appendChild(list);
-        }
+        find(nums, nums.map(String));
+        const out = document.getElementById('results');
+        out.innerHTML = results.size === 0 ? "💀 NO SOLUTION" : "";
+        results.forEach(s => {
+            const d = document.createElement('div');
+            d.className = 'sol-item';
+            d.innerText = s.substring(1, s.length-1) + " = 24";
+            out.appendChild(d);
+        });
     }
 </script>
 
